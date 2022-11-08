@@ -20,7 +20,7 @@ func (dao *UserDao) Update() {
 	// update users set name = "xi.wei", updated_at = "2022-11-07 22:22:00" where active = true;
 	dao.db.Model(&model.User{}).Where("active = ?", true).Update("name", "xi.wei")
 
-	// update users set name = "yongli.chen", updated_at = "2022-11-07 22:22:00" where id = "xxxx"
+	// update users set name = "yongli.chen", updated_at = "2022-11-07 22:22:00" where id = "xxxx";
 	u := &model.User{ID: "xxxx-xxx-xx-xxx"}
 	dao.db.Model(u).Update("name", "yongli.chen")
 }
@@ -28,7 +28,7 @@ func (dao *UserDao) Update() {
 // 多字段更新 -- 非零值
 // 根据 `strut` 更新属性，只会更新非零值的字段
 func (dao *UserDao) Updates() {
-	// update users set name = "hui.wei", age = 18, updated_at = "2022-11-07 22:22:00" where id = "xxx"
+	// update users set name = "hui.wei", age = 18, updated_at = "2022-11-07 22:22:00" where id = "xxx";
 	u := &model.User{ID: "xxxx-xxx-xx-xxx"}
 	dao.db.Model(u).Updates(model.User{Name: "hui.wei", Age: 18, Active: false})
 }
@@ -48,7 +48,7 @@ func (dao *UserDao) UpdateByGlobal() {
 	err := dao.db.Model(&model.User{}).Update("name", "bei.li").Error
 	log.Println(err) // gorm.ErrMissingWhereClause
 
-	// update uses set name = 'yu.zhou' where 1 = 1
+	// update users set name = 'yu.zhou' where 1 = 1
 	dao.db.Model(&model.User{}).Where("1 = 1").Update("name", "yu.zhou")
 }
 
@@ -58,10 +58,10 @@ func (dao *UserDao) UpdateByExpr() {
 		Model: gorm.Model{ID: 1},
 	}
 
-	// update product set price = price * 2 + 100, updated_at = "2022-11-07 22:22:00" where id = 1
+	// update product set price = price * 2 + 100, updated_at = "2022-11-07 22:22:00" where id = 1;
 	dao.db.Model(p).Update("price", gorm.Expr("price * ? + ?", 2, 100))
 
-	// update product set quantity = quantity - 1 where  id = 1 and quantity > 1
+	// update product set quantity = quantity - 1 where  id = 1 and quantity > 1;
 	dao.db.Model(p).Where("quantity > 1").UpdateColumn("quantity", gorm.Expr("quantity - ?", 1))
 }
 
@@ -69,7 +69,7 @@ func (dao *UserDao) UpdateByExpr() {
 func (dao *UserDao) UpdateSubSelect() {
 	u := &model.User{ID: "xxxx-xxx-xx-xxx"}
 
-	// update users set company_name = (select name from companies where companies.id = users.company_id)
+	// update users set company_name = (select name from companies where companies.id = users.company_id);
 	dao.db.Model(u).Update("company_name", dao.db.Model(&model.Company{})).Select("name").Where("companies.id = users.company_id")
 	dao.db.Table("users as u").Where("name = ?", "yun.zhao").
 		Update("company_name", dao.db.Table("companies as c").Select("name").Where("c.id = u.company_id"))

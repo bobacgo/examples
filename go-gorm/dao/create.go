@@ -31,10 +31,10 @@ func (dao *UserDao) Create() {
 // 指定字段创建记录
 func (dao *UserDao) CreateByFields() {
 	user := model.User{Name: "Lanjin.wei", Age: 18, Birthday: time.Now()}
-	// insert into users (name, age, create_at) values ("lanjin.wei", 18, "2020-07-04 11:05:21.775")
+	// insert into users (name, age, create_at) values ("lanjin.wei", 18, "2020-07-04 11:05:21.775");
 	dao.db.Select("Name", "Age", "CreatedAt").Create(&user)
 	// 取反
-	// insert into users (birthday, updated_at) values ("2020-07-04 11:05:21.775", "2020-07-04 11:05:21.775")
+	// insert into users (birthday, updated_at) values ("2020-07-04 11:05:21.775", "2020-07-04 11:05:21.775");
 	dao.db.Omit("Name", "Age", "CreateAt").Create(&user)
 }
 

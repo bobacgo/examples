@@ -1,6 +1,8 @@
 package model
 
+import "gorm.io/gorm"
+
 type Company struct {
-	ID   string
+	gorm.Model
 	Name string
 }
