@@ -10,11 +10,14 @@ import (
 
 type User struct {
 	gorm.Model
-	ID       string `gorm:"primarykey"`
-	Name     string
-	Role     string
-	Age      uint8
-	Birthday time.Time
+	ID          string `gorm:"primarykey"`
+	Name        string
+	Role        string
+	Age         uint8
+	Birthday    time.Time
+	Active      bool
+	CompanyId   string
+	CompanyName string
 }
 
 // hooks

@@ -11,6 +11,11 @@ type UserDao struct {
 	db *gorm.DB
 }
 
+// db.Create(&user)
+// db.Select("Name", "Age", "CreatedAt").Create(&user)
+// db.Omit("Name", "Age", "CreateAt").Create(&user)
+// db.CreateInBatches(users, 100)
+
 func NewUserDao(db *gorm.DB) *UserDao {
 	return &UserDao{db}
 }
@@ -36,7 +41,7 @@ func (dao *UserDao) CreateByFields() {
 // 批量插入
 func (dao *UserDao) CreateInBatches() {
 	// 数据量较少的情况
-	users := []model.User{{Name: "yongli.cheng"}, {Name: "xi.wei"}, {Name: "lanjin.wei"}}
+	users := []model.User{{Name: "yongli.chen"}, {Name: "xi.wei"}, {Name: "lanjin.wei"}}
 	dao.db.Create(&users)
 
 	// 插入时可以指定每批的数量 （可以在连接数据库的时候指定）
