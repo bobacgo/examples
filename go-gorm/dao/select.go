@@ -91,7 +91,7 @@ func (dao *UserDao) Find_not() {
 
 	var users []*model.User
 
-	// select * from users where name not in ("mayi.si", "yu.xun")
+	// select * from users where name not in ("mayi.si", "yu.xun");
 	dao.db.Not(map[string]any{"name": []string{"mayi.si", "yu.xun"}}).Find(users)
 
 	// select * from users where name <> 'zhi.cao' and age <> 18 order by id limit 1;
@@ -102,5 +102,65 @@ func (dao *UserDao) Find_not() {
 }
 
 func (dao *UserDao) Find_or() {
+	var users []*model.User
+	// select * from users where role = 'admin' or role = 'super_admin';
+	dao.db.Where("role = ?", "admin").Or("role = ?", "super_admin").Find(users)
 
+	// select * from users where name = "zhong.huang" or (name = "shan.liu" and age = 18);
+	dao.db.Where("name = 'zhong.huang'").Or(model.User{Name: "shan.liu", Age: 18}).Find(users)
+}
+
+// 返回特定字段
+func (dao *UserDao) Find_select() {
+	var users []model.User
+
+	// select name, age from users;
+	dao.db.Select("name", "age").Find(users)
+	dao.db.Select([]string{"name", "age"}).Find(users)
+
+	// select coalesce(age, '42') from users;
+	dao.db.Table("users").Select("coalesce(age, ?)", 42).Rows()
+}
+
+func (dao *UserDao) Find_order_limit_offset() {
+	var users []*model.User
+
+	// select * from users order by age desc, name;
+	dao.db.Order("age desc, name").Find(users)
+
+	// select * from users offset 5 limit 10;
+	dao.db.Offset(5).Limit(10).Find(users)
+}
+
+type GroupRole struct {
+	Role   string
+	AvgAge int
+}
+
+func (dao *UserDao) Find_group_having() {
+	var gr []*GroupRole
+
+	// select role avg(age) as avg_age from users group role having active = true
+	dao.db.Model(&model.User{}).Select("role, avg(age) as avg_age").
+		Group("role").Having("active = ?", "true").Find(gr)
+}
+
+func (dao *UserDao) Find_distinct() {
+	var users []*model.User
+	// select distinct("name", "age") from users order name, age desc;
+	dao.db.Distinct("name", "age").Order("name, age desc").Find(users)
+}
+
+type JoinsRes struct {
+	Name  string
+	Email string
+}
+
+// scan 结果至 struct
+func (dao *UserDao) Find_join() {
+	var userEmail []*JoinsRes
+
+	// select users.name, emails.emil from users left join emails on emails.user_id = users.id
+	dao.db.Model(&model.User{}).Select("users.name, emails.emil").
+		Joins("left join emails on emails.user_id = users.id").Scan(userEmail)
 }
