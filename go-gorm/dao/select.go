@@ -140,7 +140,7 @@ type GroupRole struct {
 func (dao *UserDao) Find_group_having() {
 	var gr []*GroupRole
 
-	// select role avg(age) as avg_age from users group role having active = true
+	// select role avg(age) as avg_age from users group role having active = true;
 	dao.db.Model(&model.User{}).Select("role, avg(age) as avg_age").
 		Group("role").Having("active = ?", "true").Find(gr)
 }
@@ -160,7 +160,7 @@ type JoinsRes struct {
 func (dao *UserDao) Find_join() {
 	var userEmail []*JoinsRes
 
-	// select users.name, emails.emil from users left join emails on emails.user_id = users.id
+	// select users.name, emails.emil from users left join emails on emails.user_id = users.id;
 	dao.db.Model(&model.User{}).Select("users.name, emails.emil").
 		Joins("left join emails on emails.user_id = users.id").Scan(userEmail)
 }

@@ -2,7 +2,8 @@ package model
 
 import "gorm.io/gorm"
 
-type Email struct {
+type Pizza struct {
 	gorm.Model
-	ID uint
+	Pizza string
+	Size  string
 }

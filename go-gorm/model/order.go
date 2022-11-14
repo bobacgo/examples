@@ -2,7 +2,6 @@ package model
 
 import "gorm.io/gorm"
 
-type Email struct {
+type Order struct {
 	gorm.Model
-	ID uint
 }
