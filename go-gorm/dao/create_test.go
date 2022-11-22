@@ -1,8 +1,10 @@
 package dao_test
 
 import (
+	"context"
 	"log"
 	"testing"
+	"time"
 
 	"github.com/gogoclouds/go-gorm/common"
 	"github.com/gogoclouds/go-gorm/common/g"
@@ -19,7 +21,9 @@ func init() {
 }
 
 func TestCreate(t *testing.T) {
-	ud := dao.NewUserDao(g.DB)
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	defer cancel()
+	ud := dao.NewUserDao(g.DB.WithContext(ctx))
 	ud.Create()
 	ud.CreateByFields()
 	ud.CreateInBatches()
