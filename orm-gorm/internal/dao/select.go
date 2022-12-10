@@ -3,7 +3,7 @@ package dao
 import (
 	"errors"
 
-	"github.com/gogoclouds/go-gorm/model"
+	"github.com/gogoclouds/orm-gorm/internal/model"
 	"gorm.io/gorm"
 )
 

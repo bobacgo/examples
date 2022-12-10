@@ -1,10 +1,11 @@
 package dao
 
 import (
-	"github.com/gogoclouds/go-gorm/model"
-	"gorm.io/gorm"
 	"log"
 	"time"
+
+	"github.com/gogoclouds/orm-gorm/internal/model"
+	"gorm.io/gorm"
 )
 
 type UserDao struct {

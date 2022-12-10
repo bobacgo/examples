@@ -1,8 +1,6 @@
 package dao
 
-import (
-	"github.com/gogoclouds/go-gorm/model"
-)
+import "github.com/gogoclouds/orm-gorm/internal/model"
 
 // email 没有组合 gorm.model 时， 没有软删除等
 

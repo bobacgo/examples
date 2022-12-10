@@ -4,9 +4,9 @@ import (
 	"log"
 	"testing"
 
-	"github.com/gogoclouds/go-gorm/common"
-	"github.com/gogoclouds/go-gorm/common/g"
-	"github.com/gogoclouds/go-gorm/dao"
+	"github.com/gogoclouds/orm-gorm/internal/common"
+	"github.com/gogoclouds/orm-gorm/internal/common/g"
+	"github.com/gogoclouds/orm-gorm/internal/dao"
 )
 
 func init() {

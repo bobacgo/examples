@@ -3,12 +3,12 @@ package main
 import (
 	"log"
 
-	"github.com/gogoclouds/go-gorm/common"
-	"github.com/gogoclouds/go-gorm/common/g"
-	"github.com/gogoclouds/go-gorm/model"
+	"github.com/gogoclouds/orm-gorm/internal/common"
+	"github.com/gogoclouds/orm-gorm/internal/common/g"
+	"github.com/gogoclouds/orm-gorm/internal/model"
 )
 
-func init() {
+func main() {
 	var err error
 	// 连接数据库
 	if g.DB, err = common.ConnectDB(); err != nil {

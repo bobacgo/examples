@@ -1,6 +1,6 @@
 package dao
 
-import "github.com/gogoclouds/go-gorm/model"
+import "github.com/gogoclouds/orm-gorm/internal/model"
 
 // 子查询
 

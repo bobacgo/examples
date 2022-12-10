@@ -1,3 +1,7 @@
-go 1.18
+go 1.19
 
-use ./go-gorm
+use (
+	./data-algorithm
+	./data-structure
+	./orm-gorm
+)
